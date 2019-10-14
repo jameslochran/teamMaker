@@ -1,0 +1,108 @@
+{% extends 'log_base.html' %}
+{% block content %}
+
+
+<div class="register-container">
+  <div class=back-link>
+         <a id=animation-btn href="{% url 'dashboard' %}" class="btn btn-default">Back to Home</a>
+     </div>
+    <div class="container">
+  <div id="wrapper">
+    <div class="normalheader transition">
+      <div class="hpanel">
+        <div class="panel-body">
+          <a class="small-header-action" href="#">
+            <div class="clip-header">
+              <i class="fa fa-arrow-up"></i>
+            </div>
+          </a>
+
+          <h2 class="font-light m-b-xs">Rate {{ player.name }}'s Skills!</h2>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <br>
+        </div>
+      </div>
+
+        <div class="panel-body">
+          <h3>Skill chart</h3>
+
+            <p>1 = Above Average <br>
+              2 = Average <br>
+             3 = Below Average</p>
+          
+          <form method="POST">
+            {% csrf_token %}
+
+            <div style="display: none;">
+
+              {{ formset }} </div>
+                {% for form in formset %}
+                <div class="table-responsive-sm">
+                <table class="table table-hover"  style="width: 500px;">
+                  <!-- <thead>
+                    <tr>
+                      <th scope="col">Player Name</th>
+                      <th scope="col">Shooting</th>
+                      <th scope="col">defense</th>
+                      <th scope="col">Passing</th>
+                      <th scope="col">Rebounding</th>
+                      </tr>
+                  </thead> -->
+                  <tbody>
+                      <tr>
+                     <th scope="row">Player Name</th>
+                     <td> {{ player.name }} </td>
+                   </tr>
+                   <tr>
+                     <th scope="row">Shooting</th>
+                     <td> {{ form.shooting }}</td>
+                   </tr>
+                   <tr>
+                     <th scope="row">Defense</th>
+                     <td> {{ form.defense }}</td>
+                   </tr>
+                   <tr>
+                     <th scope="row">rebounding</th>
+                     <td> {{ form.rebounding }}</td>
+                   </tr>
+                   <tr>
+                     <th scope="row">Passing</th>
+                     <td> {{ form.passing}} </td>
+                     </tr>
+
+
+                Delete  {{ form.DELETE }}
+
+</tbody>
+</table>
+</div>
+  </div>
+                {% endfor %}
+
+
+
+            {{ form.DELETE }}
+
+              <button type="submit" class="btn btn-primary">Add Skills</button>
+          </form>
+
+
+
+
+        </div>
+        </div>
+        </div>
+
+
+      <br>
+
+
+
+    </div>
+
+  {% endblock %}

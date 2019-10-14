@@ -1,0 +1,84 @@
+{% extends 'log_base.html' %}
+{% block content %}
+
+
+<div class="register-container">
+  <div class=back-link>
+         <a id=animation-btn href="{% url 'dashboard' %}" class="btn btn-default">Back to Home</a>
+     </div>
+    <div class="container">
+  <div id="wrapper">
+    <div class="normalheader transition">
+
+      <div class="hpanel">
+        <div class="panel-body">
+          <a class="small-header-action" href="#">
+            <div class="clip-header">
+              <i class="fa fa-arrow-up"></i>
+            </div>
+          </a>
+          <h2 class="font-light m-b-xs">
+            {{ player.name }}
+              <a href="{% url 'add_skill' player.id %}" class="btn btn-xs btn-default"> Add skills</a>
+          </h2>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hpanel">
+        <div class="panel-body">
+          <div class="table-responsive-sm">
+          <table class="table table-hover"  style="width: 500px;">
+
+              {% for skill in player.skills_set.all %}
+              <tr>
+                <th scope="row">Player Name</th>
+                <td> {{ player.name }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Player age</th>
+                <td> {{ player.age}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Player height</th>
+                <td> {{ player.height }}</td>
+              </tr>
+              <tr>
+              <th scope="row">Shooting</th>
+              <td> {{ skill.shooting }}</td>
+            </tr>
+            <tr>
+            <th scope="row">Defense</th>
+              <td>{{ skill.defense  }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Passing</th>
+              <td>{{ skill.passing }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Rebounding</th>
+            <td>{{ skill.rebounding }}</td>
+
+          </tr>
+
+              {% endfor%}
+
+
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}

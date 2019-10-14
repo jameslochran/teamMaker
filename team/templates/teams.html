@@ -1,0 +1,159 @@
+{% extends 'log_base.html' %}
+{% block content %}
+
+
+<div class="register-container">
+  <div class=back-link>
+         <a id=animation-btn href="{% url 'dashboard' %}" class="btn btn-default">Back to Home</a>
+     </div>
+    <div class="container">
+  <div id="wrapper">
+    <div class="normalheader transition">
+
+      <div class="hpanel">
+        <div class="panel-body">
+          <a class="small-header-action" href="#">
+            <div class="clip-header">
+              <i class="fa fa-arrow-up"></i>
+            </div>
+          </a>
+          <h2 class="font-light m-b-xs">
+          Team Assignment based on sorting criteria
+
+          </h2>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hpanel">
+        <div class="panel-body" style="width: 100%;">
+          <div class="hpanel" >
+                         <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> Team Rating </a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false"> Height </a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false"> Age</a></li>
+                              <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false"> Shooting </a></li>
+                         </ul>
+                         <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                               <div class="panel-body" >
+                                 <div class="row">
+                                   <h2>Differential {{ score_dif }}</h2>
+                                   <div class="col-md-6">
+                                     <p> Team 1 </p>
+
+                                     {% autoescape off %}
+                               {{ s1_table }}
+                            {% endautoescape %}
+
+
+                                   </div>
+                                   </div>
+                                   <div class="row">
+
+
+
+                                   <div class="col-md-6">
+                                     <p> Team 2 </p>
+                                     {% autoescape off %}
+                               {{ s2_table }}
+                            {% endautoescape %}
+                                   </div>
+                                 </div>
+                              </div>
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                               <div class="panel-body">
+                                 <div class="row">
+                                   <h2>Differential {{ height_dif }}</h2>
+                                   <div class="col-md-4">
+                                     <p> Team 1 </p>
+                                     {% autoescape off %}
+                               {{ h1_table }}
+                            {% endautoescape %}
+
+                                   </div>
+                                   </div>
+                                   <div class="row">
+
+
+                                   <div class="col-md-4">
+                                     <p> Team 2 </p>
+                                     {% autoescape off %}
+                               {{ h2_table }}
+                            {% endautoescape %}
+                                   </div>
+                                 </div>
+                               </div>
+                            </div>
+                            <div id="tab-3" class="tab-pane">
+                               <div class="panel-body">
+                                 <div class="row">
+                                   <h2>Differential {{ height_dif }}</h2>
+                                   <div class="col-md-4">
+                                     <p> Team 1 </p>
+                                     {% autoescape off %}
+                               {{ age1_table }}
+                            {% endautoescape %}
+
+                                   </div>
+                                   </div>
+                                   <div class="row">
+
+                                   <div class="col-md-4">
+                                     <p> Team 2 </p>
+                                     {% autoescape off %}
+                               {{ age2_table }}
+                            {% endautoescape %}
+                                   </div>
+                                 </div>
+                               </div>
+                            </div>
+                            <div id="tab-4" class="tab-pane">
+                               <div class="panel-body">
+                                 <div class="row">
+                                   <h2>Differential {{ shooting_dif }}</h2>
+                                   <div class="col-md-4">
+                                     <p> Team 1 </p>
+                                     {% autoescape off %}
+                               {{ shooting1_table }}
+                            {% endautoescape %}
+
+                                   </div>
+                                   </div>
+                                   <div class="row">
+                                   <div class="col-md-4">
+                                     <p> Team 2 </p>
+                                     {% autoescape off %}
+                               {{ shooting2_table }}
+                            {% endautoescape %}
+                                   </div>
+                                 </div>
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+
+
+    <br>
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}

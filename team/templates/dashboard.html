@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<br>
+<section id="home" class="video-hero" style="height: 700px; background-image: url(images/cover_img_1.jpg);  background-size:cover; background-position: center center;background-attachment:fixed;" data-section="home">
+<div class="overlay"></div>
+  <a class="player" data-property="{videoURL:'https://www.youtube.com/watch?v=56BY6PWwx_M',containment:'#home', showControls:false, autoPlay:true, loop:true, mute:true, startAt:0, opacity:1, quality:'default'}"></a>
+  <div class="display-t text-center">
+    <div class="display-tc">
+      <div class="container">
+        <div class="col-md-12 col-md-offset-0">
+          <div class="animate-box">
+            <h2>Create balanced teams</h2>
+            <p>If a player is not already on the roster then click below to add them!</p>
+                      <p> <a href="{% url 'create_player' %}" class="btn btn-primary">Add Players</a></p>
+                        <p> <a href="#roster" class="btn btn-primary">Pick Teams</a></p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+    <div id="wrapper">
+    <div class="normalheader ">
+
+      <div class="hpanel">
+        <div class="panel-body">
+          <a class="small-header-action" href="#">
+            <div class="clip-header">
+              <i class="fa fa-arrow-up"></i>
+            </div>
+          </a>
+
+
+          <div id="roster" class="row">
+              <h2 class="font-light m-b-xs text-center"> Roster </h2>
+            <div class="col-md-2"></div>
+
+
+            <div class="col-md-8">
+<form  action="{% url 'teams' %}" method="post">
+
+{% csrf_token %}
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Roster ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Actions</th>
+                    <th scope="col">Available to Play</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in members %}
+                  <tr>
+                    <th scope="row"> {{ item.id }}</th>
+                    <td> {{ item.name }}</td>
+                    <td>   <a href="{% url 'detail' item.id %}" class="btn btn-xs btn-default"> details</a> </td>
+                    <td> <input type="checkbox" name="checks[]" value= "{{ item.id }}"  >
+
+</td>
+   {% endfor %}
+                  </tr>
+
+                </tbody>
+
+               </table>
+               <!-- <form  method="post">
+                 {% csrf_token%}
+                 <input type="text" name="player_name" value=""> -->
+
+<!-- <td>   <a href="{% url 'teams' %}" class="btn btn-xs btn-default"> Create Teams</a> </td> -->
+   <td> <button type="submit" <a href="{% url 'teams' %}" class="btn btn-primary">Create Teams</button></a> </td>
+</form>
+            </div>
+            <div class="col-md-2"></div>
+
+
+          </div>
+<br>
+          <div class="text-center">
+          </div>
+        </div>
+      </div>
+      <br>
+
+<!--  -->
+    </div>
+    </div>
+{% endblock %}

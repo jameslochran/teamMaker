@@ -1,0 +1,91 @@
+{% extends 'log_base.html' %}
+{% block content %}
+
+
+<div class="register-container">
+  <div class=back-link>
+         <a id=animation-btn href="{% url 'dashboard' %}" class="btn btn-default">Back to Home</a>
+     </div>
+  <!-- <div id="wrapper">
+    <div class="normalheader transition">
+      <br>
+      <br>
+      <br> -->
+
+        <!-- <div class="col-md-2">
+          </div> -->
+
+               <div class="text-center m-b-md">
+                  <h3>Add a player</h3>
+
+
+                  </div>
+
+
+
+
+
+               <div class="hpanel">
+                 <h3 class="text-center m-b-md">Player attributes chart</h3>
+                 <div class="row">
+                   <div class="col-md-2">
+                   </div>
+                   <div class="col-md-8">
+                     <div class="col-md-4">
+                       <strong>Age</strong>
+
+                         <p> 1 = Less than 30 <br>
+                             2 = 31 - 40 <br>
+                             3 = 41 - 50 <br>
+                             4 = 51 -60 <br>
+                             5 = Over 61</p>
+
+                     </div>
+                     <div class="col-md-4">
+                       <strong>Height</strong>
+
+                         <p> 1 = Above 6'2" <br>
+                            2 = 5'10" - 6'1"<br>
+                            3 = Below 5'10"</p>
+
+
+                     </div>
+                   </div>
+
+                 </div>
+                                 <div class="panel-body no-shadow th-border">
+
+                                   <form method="post">
+                                     {% csrf_token%}
+                                     {% if form.non_field_errors%}<<div class="alert alert-danger"> {{ form.non_field_errors}}   </div> {% endif %}
+                                     {% load widget_tweaks %}
+                                     {% for field in form %}
+                                     <div class="form-group {%if field.errors %} alert alert-danger{% endif%}">
+                                       {{ field.errors}}
+                                       {{ field.label_tag}}
+                                       {% render_field field class="form-control" %}
+                                       {% if field.help_text %}<small class="text-muted"> {{ field.help_text|safe }}   </small> {% endif%}
+
+                                     </div>
+                                     {% endfor %}
+                                 <button type="submit" class="btn btn-primary">Add to roster</button>
+                                   </form>
+                                   <br>
+
+
+
+
+
+               </div>
+               </div>
+
+
+
+
+
+
+
+</div>
+
+
+{% endblock%}
