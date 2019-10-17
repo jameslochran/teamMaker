@@ -168,7 +168,7 @@ class CreatePlayer(generic.CreateView):
     model = Player
     fields = ['name', 'age', 'height']
     template_name = 'create_player.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
         # form.instance.user = self.request.user
