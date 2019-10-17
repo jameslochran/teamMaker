@@ -40,27 +40,21 @@ def dashboard(request):
             has_skills.append(mem_id)
     return render(request,'dashboard.html', {'members':members, 'has_skills':has_skills})
 
-#
-# class Teams(generic.DetailView):
-#     model = Player
-#     qs = Player.objects.all()
-#     df = read_frame(qs)
-#     print(df)
-#     template_name = 'teams.html'
+
 
 
 
 def Teams(request):
     #collect players
-    # avil_players = []
+
     if request.method == 'POST':
         if request.POST.getlist('checks[]'):
              selecteditems = request.POST.getlist('checks[]')
-             # print(selecteditems)
+
     else:
         pass
 
-    # print(avil_players)
+
     player_list = list(map(int, selecteditems))
     # Get all getPlayers
     model = Player

@@ -10,6 +10,6 @@ urlpatterns = [
     path('player/<int:pk>/add_skill', views.add_Skill, name='add_skill'),
     path('player/<int:pk>', views.DetailPlayer.as_view(), name='detail'),
     path('', views.dashboard, name='dashboard'),
-    path('teams', views.Teams, name='teams'),
+    # path('teams', views.Teams, name='teams'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
