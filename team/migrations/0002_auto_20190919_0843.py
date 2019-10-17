@@ -7,7 +7,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         #('team', '0001_initial'),
-        ('team', '0001_initial'),
+        ('team'),
     ]
 
     operations = [
