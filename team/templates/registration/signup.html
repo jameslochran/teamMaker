@@ -1,0 +1,75 @@
+{% extends 'log_base.html' %}
+{% block content %}
+<br>
+<br>
+<div class=back-link>
+       <a id=animation-btn href="{% url 'dashboard' %}" class="btn btn-default">Back to Home</a>
+   </div>
+<div class="register-container">
+  <!-- <div id="wrapper">
+    <div class="normalheader transition">
+      <br>
+      <br>
+      <br> -->
+      <div class="row">
+        <!-- <div class="col-md-2">
+          </div> -->
+            <div class="col-md-12">
+               <div class="text-center m-b-md">
+                  <h3>Registration</h3>
+                  <small> </small>
+               </div>
+               <div class="hpanel">
+                                 <div class="panel-body no-shadow th-border">
+
+                                   <form method="post">
+                                     {% csrf_token%}
+                                     {% if form.non_field_errors%}<<div class="alert alert-danger"> {{ form.non_field_errors}}   </div> {% endif %}
+                                     {% load widget_tweaks %}
+                                     {% for field in form %}
+                                     <div class="form-group {%if field.errors %} alert alert-danger{% endif%}">
+                                       {{ field.errors}}
+                                       {{ field.label_tag}}
+                                       {% render_field field class="form-control" %}
+                                       {% if field.help_text %}<small class="text-muted"> {{ field.help_text|safe }}   </small> {% endif%}
+
+                                     </div>
+                                     {% endfor %}
+                                 <button type="submit" class="btn btn-primary">Sign Up</button>
+                                   </form>
+
+
+
+
+
+
+               </div>
+               </div>
+
+
+
+
+               <!--
+  <h2>Sign Up</h2>
+  <form method="post">
+    {% csrf_token%}
+    {% if form.non_field_errors%}<<div class="alert alert-danger"> {{ form.non_field_errors}}   </div> {% endif %}
+    {% load widget_tweaks %}
+    {% for field in form %}
+    <div class="form-group {%if field.errors %} alert alert-danger{% endif%}">
+      {{ field.errors}}
+      {{ field.label_tag}}
+      {% render_field field class="form-control" %}
+      {% if field.help_text %}<small class="text-muted"> {{ field.help_text|safe }}   </small> {% endif%}
+
+    </div>
+    {% endfor %}
+<button type="submit" class="btn btn-primary">Sign Up</button>
+  </form> -->
+
+</div>
+<!-- <div class="col-md-2">
+  </div> -->
+</div>
+</div>
+{% endblock%}

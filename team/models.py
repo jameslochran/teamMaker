@@ -5,7 +5,7 @@ from datetime import date
 #This is a test of the migration
 class Player(models.Model):
     name = models.CharField(max_length=255)
-
+    user = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
     age = models.IntegerField(default=3)
 
 

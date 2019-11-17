@@ -1,0 +1,44 @@
+{% extends 'log_base.html' %}
+{% block content %}
+<br>
+<br>
+<!-- <div class="container">
+  <div id="wrapper">
+    <div class="normalheader transition">
+  <h2>Login</h2> -->
+  <div class=back-link>
+         <a id=animation-btn href="{% url 'dashboard' %}"class="btn btn-success">Back to Home</a>
+     </div>
+     <div class=login-container>
+         <div class=row>
+             <div class=col-md-12>
+                 <div class="text-center m-b-md animated-panel bounceIn" style="animation-delay: 0.1s;">
+                     <small>Welcome to TeamMaker</small>
+                     <!-- <h3> Exclusive Admin</h3> -->
+                 </div>
+                 <div class="hpanel animated-panel zoomIn" style="animation-delay: 0.1s;">
+                     <div class="panel-body no-shadow">
+
+  <form method="post">
+    {% csrf_token%}
+    {% if form.non_field_errors%}<<div class="alert alert-danger"> {{ form.non_field_errors}}   </div> {% endif %}
+    {% load widget_tweaks %}
+    {% for field in form %}
+    <div class="form-group {%if field.errors %} alert alert-danger{% endif%}">
+      {{ field.errors}}
+      {{ field.label_tag}}
+      {% render_field field class="form-control" %}
+      {% if field.help_text %}<small class="text-muted"> {{ field.help_text|safe }}   </small> {% endif%}
+
+    </div>
+    {% endfor %}
+<button type="submit" class="btn btn-primary">Login</button>
+  </form>
+  </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+{% endblock%}

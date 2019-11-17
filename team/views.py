@@ -25,11 +25,12 @@ from .forms import RosterForm
 def index(request):
 
 
-
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, 'home.html')
+    # return HttpResponse("Hello, world. You're at the polls index.")
 
 def dashboard(request):
-    members = Player.objects.all()
+    # members = Player.objects.all()
+    members = Player.objects.filter(user=request.user)
     has_skills = []
     for m in members:
         mem_id = m.id
@@ -101,9 +102,9 @@ def Teams(request):
     score_2 = df_score.iloc[1::2]
     score1Total = score_1['score'].sum()
     score2Total = score_2['score'].sum()
-    score_dif = score1Total - score2Total
-    score_1.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score'], inplace=True)
-    score_2.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score'], inplace=True)
+    score_dif = abs(score1Total - score2Total)
+    score_1.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
+    score_2.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
     score_1.set_index('name',inplace=True)
     score_2.set_index('name',inplace=True)
     s1_table = score_1.to_html(classes='table table-hover table-bordered table-striped', index_names=False)
@@ -118,9 +119,9 @@ def Teams(request):
     height_2 = df_height.iloc[1::2]
     height1Total = height_1['score'].sum()
     height2Total = height_2['score'].sum()
-    height_dif = height1Total - height2Total
-    height_1.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score'], inplace=True)
-    height_2.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score'], inplace=True)
+    height_dif = abs(height1Total - height2Total)
+    height_1.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
+    height_2.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
     height_1.set_index('name',inplace=True)
     height_2.set_index('name',inplace=True)
     h1_table = height_1.to_html(classes='table table-hover table-bordered table-striped', index_names=False)
@@ -132,9 +133,9 @@ def Teams(request):
     age_2 = df_age.iloc[1::2]
     age1Total = age_1['score'].sum()
     age2Total = age_2['score'].sum()
-    age_dif = age1Total - age2Total
-    age_1 .drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score'], inplace=True)
-    age_2.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score'], inplace=True)
+    age_dif = abs(age1Total - age2Total)
+    age_1 .drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
+    age_2.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
     age_1.set_index('name',inplace=True)
     age_2.set_index('name',inplace=True)
     age1_table = age_1.to_html(classes='table table-hover table-bordered table-striped', index_names=False)
@@ -146,9 +147,9 @@ def Teams(request):
     shooting_2 = df_shooting.iloc[1::2]
     shooting1Total = shooting_1['score'].sum()
     shooting2Total = shooting_2['score'].sum()
-    shooting_dif = shooting1Total - shooting2Total
-    shooting_1.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score'], inplace=True)
-    shooting_2.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score'], inplace=True)
+    shooting_dif = abs(shooting1Total - shooting2Total)
+    shooting_1.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
+    shooting_2.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
     shooting_1.set_index('name',inplace=True)
     shooting_2.set_index('name',inplace=True)
     shooting1_table = shooting_1.to_html(classes='table table-hover table-bordered table-striped', index_names=False)
@@ -164,14 +165,14 @@ def Teams(request):
                                             'shooting1_table':shooting1_table, 'shooting2_table':shooting2_table, 'shooting_dif':shooting_dif})
 
 
-class CreatePlayer(generic.CreateView):
+class CreatePlayer(LoginRequiredMixin, generic.CreateView):
     model = Player
     fields = ['name', 'age', 'height']
     template_name = 'create_player.html'
     success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
-        # form.instance.user = self.request.user
+        form.instance.user = self.request.user
         super(CreatePlayer, self).form_valid(form)
         return redirect('dashboard')
 
@@ -199,3 +200,16 @@ class DetailPlayer(generic.DetailView):
     qs = Player.objects.all()
     # df = read_frame(qs)
     template_name = 'detail.html'
+
+
+class SignUp(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('dashboard')
+    template_name = 'registration/signup.html'
+
+    def form_valid(self, form):
+        view = super(SignUp, self).form_valid(form)
+        username, password = form.cleaned_data.get('username'), form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        return view

@@ -64,7 +64,13 @@
 						</div>
 						<div class="col-md-10 text-right menu-1">
 							<ul>
-								<li class="active"><a href="{% url 'dashboard' %}">Home</a></li>
+								{% if user.is_authenticated %}
+									<!-- <li><a href="{% url 'dashboard' %}">Dashboard</a></li> -->
+									<li><a href="{% url 'logout' %}">Logout</a></li>
+								{% else %}
+								<li><a href="{% url 'login' %}">Login</a></li>
+								{% endif %}
+								<!-- <li class="active"><a href="{% url 'dashboard' %}">Home</a></li> -->
 								<!-- <li class="has-dropdown">
 									<a href="work.html">Works</a>
 									<ul class="dropdown">
@@ -74,7 +80,7 @@
 								</li> -->
 
 
-									<li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+									<!-- <li><a href="{% url 'dashboard' %}">Dashboard</a></li> -->
 							</ul>
 						</div>
 					</div>
@@ -206,7 +212,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="{% static 'home/js/jquery.countTo.js' %}"></script>
 	<!-- Main -->
 	<script src="{% static 'home/js/main.js' %}"></script>
-	
+
 
 	</body>
 </html>

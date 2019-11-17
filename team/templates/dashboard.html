@@ -12,9 +12,15 @@
         <div class="col-md-12 col-md-offset-0">
           <div class="animate-box">
             <h2>Create balanced teams</h2>
+            {% if user.is_authenticated %}
             <p>If a player is not already on the roster then click below to add them!</p>
                       <p> <a href="{% url 'create_player' %}" class="btn btn-primary">Add Players</a></p>
-                        <p> <a href="#roster" class="btn btn-primary">Pick Teams</a></p>
+
+                                      <p> <a href="#roster" class="btn btn-primary">Pick Teams</a></p>
+         {% else %}
+           <p><a href="{% url 'signup' %}" class="btn btn-primary btn-lg btn-custom">Sign up</a></p>
+         {% endif %}
+
 
           </div>
         </div>
