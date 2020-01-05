@@ -72,7 +72,7 @@ def Teams(request):
     # print(df)
     ds = read_frame(qs)
     # print(ds)
-    #create dataframe will players and skills
+    #create dataframe with players and skills
     ds.rename(columns={'player':'name'},inplace=True)
 
     #full_roster = pd.concat([df, ds], axis=1, sort=False)
@@ -82,7 +82,9 @@ def Teams(request):
 
 
     #sum columns to create score for each player
-    full_roster['score']= full_roster.sum(axis=1)
+    # full_roster['score']= full_roster.sum(axis=1)
+    full_roster['score']= (full_roster.defense*2)+(full_roster.rebounding*2)+(full_roster.passing*2)+(full_roster.shooting)
+    
 
     # full_roster.drop(columns=['id', 'player'],inplace=True)
 #sort into various dataframes
@@ -96,15 +98,15 @@ def Teams(request):
     df_age.sort_values(by=['age'], inplace=True)
     df_shooting = full_roster.copy()
     df_shooting.sort_values(by=['shooting'], inplace=True)
-# create teanms for each sorting
+# create teams for each sorting
     #score
     score_1 = df_score.iloc[::2]
     score_2 = df_score.iloc[1::2]
     score1Total = score_1['score'].sum()
     score2Total = score_2['score'].sum()
     score_dif = abs(score1Total - score2Total)
-    score_1.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
-    score_2.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
+    score_1.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding', 'user'], inplace=True)
+    score_2.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'user'], inplace=True)
     score_1.set_index('name',inplace=True)
     score_2.set_index('name',inplace=True)
     s1_table = score_1.to_html(classes='table table-hover table-bordered table-striped', index_names=False)
@@ -120,8 +122,8 @@ def Teams(request):
     height1Total = height_1['score'].sum()
     height2Total = height_2['score'].sum()
     height_dif = abs(height1Total - height2Total)
-    height_1.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
-    height_2.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
+    height_1.drop(columns=[ 'age' ,   'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
+    height_2.drop(columns=[ 'age' ,   'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
     height_1.set_index('name',inplace=True)
     height_2.set_index('name',inplace=True)
     h1_table = height_1.to_html(classes='table table-hover table-bordered table-striped', index_names=False)
@@ -134,8 +136,8 @@ def Teams(request):
     age1Total = age_1['score'].sum()
     age2Total = age_2['score'].sum()
     age_dif = abs(age1Total - age2Total)
-    age_1 .drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
-    age_2.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
+    age_1 .drop(columns=[  'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
+    age_2.drop(columns=[  'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
     age_1.set_index('name',inplace=True)
     age_2.set_index('name',inplace=True)
     age1_table = age_1.to_html(classes='table table-hover table-bordered table-striped', index_names=False)
@@ -148,8 +150,8 @@ def Teams(request):
     shooting1Total = shooting_1['score'].sum()
     shooting2Total = shooting_2['score'].sum()
     shooting_dif = abs(shooting1Total - shooting2Total)
-    shooting_1.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
-    shooting_2.drop(columns=[ 'age' , 'height',  'shooting',  'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
+    shooting_1.drop(columns=[ 'age' , 'height',    'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
+    shooting_2.drop(columns=[ 'age' , 'height',   'defense',  'passing' , 'rebounding',  'score','user'], inplace=True)
     shooting_1.set_index('name',inplace=True)
     shooting_2.set_index('name',inplace=True)
     shooting1_table = shooting_1.to_html(classes='table table-hover table-bordered table-striped', index_names=False)
@@ -159,10 +161,10 @@ def Teams(request):
 
 
 
-    return render(request,'teams.html', {'s1_table':s1_table, 's2_table':s2_table, 'score_dif':score_dif,
-                                            'h1_table':h1_table, 'h2_table':h2_table, 'height_dif':height_dif,
-                                            'age1_table':age1_table, 'age2_table':age2_table, 'age_dif':age_dif,
-                                            'shooting1_table':shooting1_table, 'shooting2_table':shooting2_table, 'shooting_dif':shooting_dif})
+    return render(request,'teams.html', {'s1_table':s1_table, 's2_table':s2_table, 'score_dif':score_dif, 'score1Total':score1Total, 'score2Total':score2Total,
+                                            'h1_table':h1_table, 'h2_table':h2_table, 'height_dif':height_dif, 'height1Total':height1Total, 'height2Total':height2Total,
+                                            'age1_table':age1_table, 'age2_table':age2_table, 'age_dif':age_dif, 'age1Total':age1Total, 'age2Total':age2Total,
+                                            'shooting1_table':shooting1_table, 'shooting2_table':shooting2_table, 'shooting_dif':shooting_dif, 'shooting1Total':shooting1Total, 'shooting2Total':shooting2Total })
 
 
 class CreatePlayer(LoginRequiredMixin, generic.CreateView):

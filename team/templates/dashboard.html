@@ -49,11 +49,13 @@
 <form  action="{% url 'teams' %}" method="post">
 
 {% csrf_token %}
+ <!-- <td> <button type="submit" <a href="{% url 'teams' %}" class="btn btn-primary">Create Teams</button></a> </td> -->
               <table class="table">
                 <thead>
                   <tr>
                     <th scope="col">Roster ID</th>
                     <th scope="col">Name</th>
+
                     <th scope="col">Actions</th>
                     <th scope="col">Available to Play</th>
 
@@ -64,6 +66,7 @@
                   <tr>
                     <th scope="row"> {{ item.id }}</th>
                     <td> {{ item.name }}</td>
+
                     <td>   <a href="{% url 'detail' item.id %}" class="btn btn-xs btn-default"> details</a> </td>
                     <td> <input type="checkbox" name="checks[]" value= "{{ item.id }}"  >
 

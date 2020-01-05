@@ -37,15 +37,17 @@
                             <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> Team Rating </a></li>
                             <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false"> Height </a></li>
                             <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false"> Age</a></li>
-                              <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false"> Shooting </a></li>
+                              <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false"> Scoring </a></li>
                          </ul>
+
+                        <!-- Total score  -->
                          <div class="tab-content">
                             <div id="tab-1" class="tab-pane active">
                                <div class="panel-body" >
                                  <div class="row">
                                    <h2>Differential {{ score_dif }}</h2>
                                    <div class="col-md-6">
-                                     <p> Team 1 </p>
+                                     <p> Team 1 - {{ score1Total }}</p>
 
                                      {% autoescape off %}
                                {{ s1_table }}
@@ -59,7 +61,7 @@
 
 
                                    <div class="col-md-6">
-                                     <p> Team 2 </p>
+                                     <p> Team 2 - {{ score2Total }}</p>
                                      {% autoescape off %}
                                {{ s2_table }}
                             {% endautoescape %}
@@ -67,12 +69,14 @@
                                  </div>
                               </div>
                             </div>
+
+                            <!-- Height -->
                             <div id="tab-2" class="tab-pane">
                                <div class="panel-body">
                                  <div class="row">
                                    <h2>Differential {{ height_dif }}</h2>
                                    <div class="col-md-4">
-                                     <p> Team 1 </p>
+                                     <p> Team 1 - {{ height1Total }}</p>
                                      {% autoescape off %}
                                {{ h1_table }}
                             {% endautoescape %}
@@ -83,7 +87,7 @@
 
 
                                    <div class="col-md-4">
-                                     <p> Team 2 </p>
+                                     <p> Team 2  - {{ height2Total }}</p>
                                      {% autoescape off %}
                                {{ h2_table }}
                             {% endautoescape %}
@@ -91,12 +95,13 @@
                                  </div>
                                </div>
                             </div>
+                            <!-- Age -->
                             <div id="tab-3" class="tab-pane">
                                <div class="panel-body">
                                  <div class="row">
-                                   <h2>Differential {{ height_dif }}</h2>
+                                   <h2>Differential {{ age_dif }}</h2>
                                    <div class="col-md-4">
-                                     <p> Team 1 </p>
+                                     <p> Team 1 - {{ age1Total }}</p>
                                      {% autoescape off %}
                                {{ age1_table }}
                             {% endautoescape %}
@@ -106,7 +111,7 @@
                                    <div class="row">
 
                                    <div class="col-md-4">
-                                     <p> Team 2 </p>
+                                     <p> Team 2 - {{ age2Total }}</p>
                                      {% autoescape off %}
                                {{ age2_table }}
                             {% endautoescape %}
@@ -114,12 +119,13 @@
                                  </div>
                                </div>
                             </div>
+                            <!-- Scoring -->
                             <div id="tab-4" class="tab-pane">
                                <div class="panel-body">
                                  <div class="row">
                                    <h2>Differential {{ shooting_dif }}</h2>
                                    <div class="col-md-4">
-                                     <p> Team 1 </p>
+                                     <p> Team 1 - {{ shooting1Total }}</p>
                                      {% autoescape off %}
                                {{ shooting1_table }}
                             {% endautoescape %}
@@ -128,7 +134,7 @@
                                    </div>
                                    <div class="row">
                                    <div class="col-md-4">
-                                     <p> Team 2 </p>
+                                     <p> Team 2  - {{ shooting2Total }}</p>
                                      {% autoescape off %}
                                {{ shooting2_table }}
                             {% endautoescape %}
